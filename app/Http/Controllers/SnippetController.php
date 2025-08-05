@@ -29,9 +29,12 @@ class SnippetController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'category' => 'required|in:PHP,HTML,CSS',
+            'category' => 'required|in:php,html,css,PHP,HTML,CSS',
             'code' => 'required|string',
         ]);
+
+        // Normalize category to uppercase for consistency
+        $validated['category'] = strtoupper($validated['category']);
 
         $snippet = Snippet::create($validated);
 
@@ -69,9 +72,13 @@ class SnippetController extends Controller
         $validated = $request->validate([
             'title' => 'sometimes|string|max:255',
             'description' => 'sometimes|string|max:255',
-            'category' => 'sometimes|in:PHP,HTML,CSS',
+            'category' => 'sometimes|in:php,html,css,PHP,HTML,CSS',
             'code' => 'sometimes|string',
         ]);
+
+        if (isset($validated['category'])) {
+            $validated['category'] = strtoupper($validated['category']);
+        }
 
         $snippet->update($validated);
 
