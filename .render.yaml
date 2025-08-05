@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: laravel-app
+    runtime: docker
+    plan: free
+    region: frankfurt
+    startCommand: php artisan migrate --force && apache2-foreground
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        value: https://laravel-app.onrender.com
+
+databases:
+  - name: laravel-db
+    databaseName: laravel_app
+    user: laravel_user
+    plan: free
+    region: frankfurt
