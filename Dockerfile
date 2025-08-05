@@ -57,6 +57,7 @@ RUN if [ ! -f .env ] && [ -f .env.example ]; then cp .env.example .env; fi
 # Définir les permissions correctes pour Laravel
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
+    && mkdir -p /var/www/html/bootstrap/cache \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
 # Générer la clé d'application Laravel
