@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libpq-dev \
-    mysql-client \
+    mariadb-client \
     && docker-php-ext-configure gd \
     && docker-php-ext-install \
         pdo \
