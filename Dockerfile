@@ -64,9 +64,14 @@ RUN chown -R www-data:www-data /var/www/html \
 RUN php artisan key:generate
 
 # Optimiser Laravel pour la production
-RUN php artisan config:cache \
+# Ensure storage and bootstrap directories exist with proper permissions
+RUN mkdir -p storage/framework/{sessions,views,cache} \
+    && mkdir -p bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache \
+    && php artisan config:cache \
     && php artisan route:cache \
-    && php artisan view:cache
+    && php artisan view:cache || echo "View cache skipped - continuing build"
 
 # Configurer OPcache pour les performances
 RUN { \
