@@ -52,7 +52,7 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 COPY . .
 
 # Copier le fichier .env.example si .env n'existe pas
-RUN if [ ! -f .env ]; then cp .env.example .env; fi
+RUN if [ ! -f .env ] && [ -f .env.example ]; then cp .env.example .env; fi
 
 # Définir les permissions correctes pour Laravel
 RUN chown -R www-data:www-data /var/www/html \

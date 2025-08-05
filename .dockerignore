@@ -16,7 +16,6 @@ yarn-error.log
 vendor/
 .env
 .env.backup
-.env.example
 storage/logs/
 storage/framework/cache/
 storage/framework/sessions/
